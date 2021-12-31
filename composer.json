@@ -1,0 +1,21 @@
+{
+    "name": "dduers/code-labyrinth",
+    "description": "find a way through the code",
+    "type": "project",
+    "require": {
+        "endroid/qr-code": "^4.4",
+        "php": ">=7.4"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Dduers\\CodeLabyrinth\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Daniel Duersteler",
+            "email": "daniel.duersteler@gmail.com"
+        }
+    ]
+}
