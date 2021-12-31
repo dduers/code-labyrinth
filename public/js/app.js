@@ -38,15 +38,15 @@ function resize() {
 function getPosition(event) {
     coord.x = event.clientX - canvas.offsetLeft - 7;
     coord.y = event.clientY - canvas.offsetTop - 7;
-
+    /*
     if (coord_path_start.x < coord_path_start.y) {
         if (ctx.canvas.width < coord.x + 25)
             alert('done1');
-
     } else {
         if (ctx.canvas.height < coord.y + 25)
             alert('done3');
     }
+    */
 }
 
 function rgbToHex(r, g, b) {
@@ -67,9 +67,8 @@ function startPainting(event) {
     getPosition(event);
     let pixelData = ctx.getImageData(coord.x, coord.y, 1, 1).data;
     let hex = "#" + (colors.path + rgbToHex(pixelData[0], pixelData[1], pixelData[2])).slice(-6);
-    if (hex !== '#' + colors.path && hasPath === true) {
+    if (hex !== '#' + colors.path && hasPath === true)
         return;
-    }
     paint = true;
 }
 
@@ -102,7 +101,7 @@ function sketch(event) {
     // if a path was started, remember
     if (hasPath === false) {
         hasPath = true;
-        coord_path_start.x = coord.x;
-        coord_path_start.y = coord.y;
+        //coord_path_start.x = coord.x;
+        //coord_path_start.y = coord.y;
     }
 }
