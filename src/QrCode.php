@@ -42,8 +42,8 @@ class QrCode
     /**
      * generate random string
      */
-    private function generateRandomString(int $len): string
+    private function generateRandomString(int $bytes): string
     {
-        return bin2hex(random_bytes($len));
+        return bin2hex(random_bytes($bytes));
     }
 }

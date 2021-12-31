@@ -7,7 +7,6 @@ use Dduers\CodeLabyrinth\QrCode;
 
 $code = new QrCode();
 $result = $code->createCode();
-
 // direct output
 header('Content-Type: ' . $result->getMimeType());
 echo $result->getString();
