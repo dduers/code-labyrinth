@@ -30,7 +30,7 @@ class QrCode
             ->encoding(new Encoding('UTF-8'))
             ->errorCorrectionLevel(new ErrorCorrectionLevelHigh())
             ->size(1000)
-            ->margin(10)
+            ->margin(0)
             ->roundBlockSizeMode(new RoundBlockSizeModeMargin())
             //->logoPath(__DIR__ . '/assets/symfony.png')
             ->labelText('')
