@@ -6,28 +6,26 @@ const ctx = canvas.getContext("2d");
 let coord = { x: 0, y: 0 };
 // flag to trigger drawing
 let paint = false;
-// has path
+
 let hasPath = false;
 // colors
 let colors = {
     obstacle: '000000',
-    path: 'ff8c00',
-    way: 'ffffff'
+    path: 'ff8c00'
 };
 
 window.addEventListener('load', () => {
-    resize();
+    drawImageFromWebUrl("php/code.php");
+    //resize();
     document.addEventListener('mousedown', startPainting);
     document.addEventListener('mouseup', stopPainting);
     document.addEventListener('mousemove', sketch);
-    window.addEventListener('resize', resize);
+    //window.addEventListener('resize', resize);
 });
 
 function resize() {
-    let size = Math.min(window.innerWidth, window.innerHeight);
-    ctx.canvas.width = size;
-    ctx.canvas.height = size;
-    drawImageFromWebUrl("php/code.php");
+    ctx.canvas.width = window.innerWidth;
+    ctx.canvas.height = window.innerHeight;
 }
 
 function getPosition(event) {
@@ -50,11 +48,6 @@ function drawImageFromWebUrl(sourceurl) {
 }
 
 function startPainting(event) {
-    getPosition(event);
-    let pixelData = ctx.getImageData(coord.x, coord.y, 1, 1).data;
-    let hex = "#" + (colors.path + rgbToHex(pixelData[0], pixelData[1], pixelData[2])).slice(-6);
-    if (hex !== '#' + colors.path && hasPath === true)
-        return;
     paint = true;
     getPosition(event);
 }
@@ -73,7 +66,6 @@ function sketch(event) {
     ctx.moveTo(coord.x, coord.y);
     // The position of the cursor gets updated as we move the mouse around.
     getPosition(event);
-    // check for obstacle
     let pixelData = ctx.getImageData(coord.x + 5, coord.y + 5, 1, 1).data;
     let hex = "#" + (colors.obstacle + rgbToHex(pixelData[0], pixelData[1], pixelData[2])).slice(-6);
     if (hex === '#' + colors.obstacle) {
@@ -84,6 +76,5 @@ function sketch(event) {
     ctx.lineTo(coord.x, coord.y);
     // Draws the line.
     ctx.stroke();
-    // if a path was started, remember
     hasPath = true;
 }
