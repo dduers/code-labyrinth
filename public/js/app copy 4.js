@@ -4,7 +4,6 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 // initial position of the cursor
 let coord = { x: 0, y: 0 };
-let coord_path_start = { x: 0, y: 0 };
 // flag to trigger drawing
 let paint = false;
 // has path
@@ -38,15 +37,6 @@ function resize() {
 function getPosition(event) {
     coord.x = event.clientX - canvas.offsetLeft - 7;
     coord.y = event.clientY - canvas.offsetTop - 7;
-
-    if (coord_path_start.x < coord_path_start.y) {
-        if (ctx.canvas.width < coord.x + 25)
-            alert('done1');
-
-    } else {
-        if (ctx.canvas.height < coord.y + 25)
-            alert('done3');
-    }
 }
 
 function rgbToHex(r, g, b) {
@@ -71,6 +61,7 @@ function startPainting(event) {
         return;
     }
     paint = true;
+    getPosition(event);
 }
 
 function stopPainting() {
@@ -100,9 +91,5 @@ function sketch(event) {
     // Draws the line.
     ctx.stroke();
     // if a path was started, remember
-    if (hasPath === false) {
-        hasPath = true;
-        coord_path_start.x = coord.x;
-        coord_path_start.y = coord.y;
-    }
+    hasPath = true;
 }
