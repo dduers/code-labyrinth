@@ -26,7 +26,7 @@ class QrCode
         return Builder::create()
             ->writer(new PngWriter())
             ->writerOptions([])
-            ->data('Custom QR code contents')
+            ->data($this->generateRandomString(50))
             ->encoding(new Encoding('UTF-8'))
             ->errorCorrectionLevel(new ErrorCorrectionLevelHigh())
             ->size(600)
@@ -37,5 +37,13 @@ class QrCode
             ->labelFont(new NotoSans(20))
             ->labelAlignment(new LabelAlignmentCenter())
             ->build();
+    }
+
+    /**
+     * generate random string
+     */
+    private function generateRandomString(int $len): string
+    {
+        return bin2hex(random_bytes($len));
     }
 }
