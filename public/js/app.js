@@ -16,21 +16,18 @@ var audio = {
 window.addEventListener('load', () => {
     resize();
     if ('onpointerdown' in document.documentElement) {
-        domElement.addEventListener("pointerdown", startPainting, false);
-        domElement.addEventListener("pointermove", sketch, false);
-        domElement.addEventListener("pointerup", stopPainting, false);
+        document.addEventListener("pointerdown", startPainting, false);
+        document.addEventListener("pointerup", stopPainting, false);
+        document.addEventListener("pointermove", sketch, false);
     } else if ('ontouchstart' in document.documentElement) {
-        domElement.addEventListener("touchstart", startPainting, false);
-        domElement.addEventListener("touchmove", sketch, false);
-        domElement.addEventListener("touchend", stopPainting, false);
+        document.addEventListener("touchstart", startPainting, false);
+        document.addEventListener("touchend", stopPainting, false);
+        document.addEventListener("touchmove", sketch, false);
     } else if ('onmousedown' in document.documentElement) {
-        domElement.addEventListener("mousedown", startPainting, false);
-        domElement.addEventListener("mousemove", sketch, false);
-        domElement.addEventListener("mouseup", stopPainting, false);
+        document.addEventListener("mousedown", startPainting, false);
+        document.addEventListener("mouseup", stopPainting, false);
+        document.addEventListener("mousemove", sketch, false);
     }
-    //document.addEventListener('mousedown', startPainting);
-    //document.addEventListener('mouseup', stopPainting);
-    //document.addEventListener('mousemove', sketch);
     window.addEventListener('resize', resize);
 });
 
