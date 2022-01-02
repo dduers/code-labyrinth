@@ -15,20 +15,17 @@ var audio = {
 
 window.addEventListener('load', () => {
     resize();
-    if (isEventSupported("onpointerdown")) {
+    if ('onpointerdown' in document.documentElement) {
         domElement.addEventListener("pointerdown", startPainting, false);
         domElement.addEventListener("pointermove", sketch, false);
-        //domElement.addEventListener("pointermove", onPointerMove, false);
         domElement.addEventListener("pointerup", stopPainting, false);
-    } else if (isEventSupported("ontouchstart")) {
+    } else if ('ontouchstart' in document.documentElement) {
         domElement.addEventListener("touchstart", startPainting, false);
         domElement.addEventListener("touchmove", sketch, false);
-        //domElement.addEventListener("touchmove", onPointerMove, false);
         domElement.addEventListener("touchend", stopPainting, false);
-    } else if (isEventSupported("onmousedown")) {
+    } else if ('onmousedown' in document.documentElement) {
         domElement.addEventListener("mousedown", startPainting, false);
         domElement.addEventListener("mousemove", sketch, false);
-        //domElement.addEventListener("mousemove", onPointerMove, false);
         domElement.addEventListener("mouseup", stopPainting, false);
     }
     //document.addEventListener('mousedown', startPainting);
@@ -36,31 +33,6 @@ window.addEventListener('load', () => {
     //document.addEventListener('mousemove', sketch);
     window.addEventListener('resize', resize);
 });
-
-var isEventSupported = (function() {
-    var TAGNAMES = {
-        'select': 'input',
-        'change': 'input',
-        'submit': 'form',
-        'reset': 'form',
-        'error': 'img',
-        'load': 'img',
-        'abort': 'img'
-    }
-
-    function isEventSupported(eventName) {
-        var el = document.createElement(TAGNAMES[eventName] || 'div');
-        eventName = 'on' + eventName;
-        var isSupported = (eventName in el);
-        if (!isSupported) {
-            el.setAttribute(eventName, 'return;');
-            isSupported = typeof el[eventName] == 'function';
-        }
-        el = null;
-        return isSupported;
-    }
-    return isEventSupported;
-})();
 
 function resize() {
     let size = Math.min(window.innerWidth, window.innerHeight);
