@@ -4,6 +4,7 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 // initial position of the cursor
 let coord = { x: 0, y: 0 };
+// start of the path
 let coord_path_start = { x: 0, y: 0 };
 // flag to trigger drawing
 let paint = false;
@@ -65,6 +66,8 @@ function drawImageFromWebUrl(sourceurl) {
 
 function startPainting(event) {
     getPosition(event);
+    if (coord.x > 15 && hasPath === false)
+        return;
     let pixelData = ctx.getImageData(coord.x, coord.y, 1, 1).data;
     let hex = "#" + (colors.path + rgbToHex(pixelData[0], pixelData[1], pixelData[2])).slice(-6);
     if (hex !== '#' + colors.path && hasPath === true)
@@ -73,7 +76,7 @@ function startPainting(event) {
 }
 
 function stopPainting() {
-    paint = false;
+    //paint = false;
 }
 
 function sketch(event) {
@@ -82,21 +85,32 @@ function sketch(event) {
     ctx.lineWidth = 5;
     ctx.lineCap = 'round';
     ctx.strokeStyle = '#' + colors.path;
-    // The cursor to start drawing moves to this coordinate
+    // store coordinates
+    let coord_x = coord.x;
+    let coord_y = coord.y;
+    // start drawinf at this coordinate
     ctx.moveTo(coord.x, coord.y);
     // The position of the cursor gets updated as we move the mouse around.
     getPosition(event);
+    let coord_offset_x = coord.x - coord_x;
+    let coord_offset_y = coord.y - coord_y;
     // check for obstacle
-    let pixelData = ctx.getImageData(coord.x + 5, coord.y + 5, 1, 1).data;
-    let hex = "#" + (colors.obstacle + rgbToHex(pixelData[0], pixelData[1], pixelData[2])).slice(-6);
-    if (hex === '#' + colors.obstacle) {
+    let pixelData = {
+        point: ctx.getImageData(coord.x + coord_offset_x, coord.y + coord_offset_y, 1, 1).data,
+        left: ctx.getImageData(coord.x + coord_offset_x - 2, coord.y + coord_offset_y - 2, 1, 1).data,
+        right: ctx.getImageData(coord.x + coord_offset_x + 2, coord.y + coord_offset_y + 2, 1, 1).data
+    }
+    let hex1 = "#" + (colors.obstacle + rgbToHex(pixelData.point[0], pixelData.point[1], pixelData.point[2])).slice(-6);
+    let hex2 = "#" + (colors.obstacle + rgbToHex(pixelData.left[0], pixelData.left[1], pixelData.left[2])).slice(-6);
+    let hex3 = "#" + (colors.obstacle + rgbToHex(pixelData.right[0], pixelData.right[1], pixelData.right[2])).slice(-6);
+    if (hex1 === '#' + colors.obstacle || hex2 === '#' + colors.obstacle || hex3 === '#' + colors.obstacle) {
         audio.hit.play();
         stopPainting();
         return;
     }
     // A line is traced from start coordinate to this coordinate
     ctx.lineTo(coord.x, coord.y);
-    // Draws the line.
+    // draws the line.
     ctx.stroke();
     // if a path was started, remember
     if (hasPath === false) {
