@@ -1,22 +1,14 @@
-// canvas
 const canvas = document.getElementById("canvas");
-// context
 const ctx = canvas.getContext("2d");
-// initial position of the cursor
 let coord = { x: 0, y: 0 };
-// start of the path
 let coord_path_start = { x: 0, y: 0 };
-// flag to trigger drawing
 let paint = false;
-// has path
 let hasPath = false;
-// colors
 let colors = {
     obstacle: '000000',
     path: 'ff8c00',
     way: 'ffffff'
 };
-// audio
 var audio = {
     hit: new Audio('audio/2.mp3')
 };
@@ -76,13 +68,13 @@ function startPainting(event) {
 }
 
 function stopPainting() {
-    //paint = false;
+    paint = false;
 }
 
 function sketch(event) {
     if (!paint) return;
     ctx.beginPath();
-    ctx.lineWidth = 5;
+    ctx.lineWidth = 8;
     ctx.lineCap = 'round';
     ctx.strokeStyle = '#' + colors.path;
     // store coordinates
