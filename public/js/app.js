@@ -15,15 +15,15 @@ var audio = {
 
 window.addEventListener('load', () => {
     resize();
-    if ('onpointerdown' in document.documentElement) {
+    if ('onpointerdown' in document) {
         document.addEventListener("pointerdown", startPainting, false);
         document.addEventListener("pointerup", stopPainting, false);
         document.addEventListener("pointermove", sketch, false);
-    } else if ('ontouchstart' in document.documentElement) {
+    } else if ('ontouchstart' in document) {
         document.addEventListener("touchstart", startPainting, false);
         document.addEventListener("touchend", stopPainting, false);
         document.addEventListener("touchmove", sketch, false);
-    } else if ('onmousedown' in document.documentElement) {
+    } else if ('onmousedown' in document) {
         document.addEventListener("mousedown", startPainting, false);
         document.addEventListener("mouseup", stopPainting, false);
         document.addEventListener("mousemove", sketch, false);
