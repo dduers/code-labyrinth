@@ -15,9 +15,25 @@ var audio = {
 
 window.addEventListener('load', () => {
     resize();
-    document.addEventListener('mousedown', startPainting);
-    document.addEventListener('mouseup', stopPainting);
-    document.addEventListener('mousemove', sketch);
+    if (isEventSupported("onpointerdown")) {
+        domElement.addEventListener("pointerdown", startPainting, false);
+        domElement.addEventListener("pointermove", sketch, false);
+        //domElement.addEventListener("pointermove", onPointerMove, false);
+        domElement.addEventListener("pointerup", stopPainting, false);
+    } else if (isEventSupported("ontouchstart")) {
+        domElement.addEventListener("touchstart", startPainting, false);
+        domElement.addEventListener("touchmove", sketch, false);
+        //domElement.addEventListener("touchmove", onPointerMove, false);
+        domElement.addEventListener("touchend", stopPainting, false);
+    } else if (isEventSupported("onmousedown")) {
+        domElement.addEventListener("mousedown", startPainting, false);
+        domElement.addEventListener("mousemove", sketch, false);
+        //domElement.addEventListener("mousemove", onPointerMove, false);
+        domElement.addEventListener("mouseup", stopPainting, false);
+    }
+    //document.addEventListener('mousedown', startPainting);
+    //document.addEventListener('mouseup', stopPainting);
+    //document.addEventListener('mousemove', sketch);
     window.addEventListener('resize', resize);
 });
 
