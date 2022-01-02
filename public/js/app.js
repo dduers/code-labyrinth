@@ -89,8 +89,8 @@ function sketch(event) {
     // check for obstacle
     let pixelData = {
         point: ctx.getImageData(coord.x + coord_offset_x, coord.y + coord_offset_y, 1, 1).data,
-        left: ctx.getImageData(coord.x + coord_offset_x - 2, coord.y + coord_offset_y - 2, 1, 1).data,
-        right: ctx.getImageData(coord.x + coord_offset_x + 2, coord.y + coord_offset_y + 2, 1, 1).data
+        left: ctx.getImageData(coord.x + coord_offset_x - 4, coord.y + coord_offset_y - 4, 1, 1).data,
+        right: ctx.getImageData(coord.x + coord_offset_x + 4, coord.y + coord_offset_y + 4, 1, 1).data
     }
     let hex1 = "#" + (colors.obstacle + rgbToHex(pixelData.point[0], pixelData.point[1], pixelData.point[2])).slice(-6);
     let hex2 = "#" + (colors.obstacle + rgbToHex(pixelData.left[0], pixelData.left[1], pixelData.left[2])).slice(-6);
