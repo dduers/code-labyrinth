@@ -97,15 +97,9 @@ function sketch(event) {
     let coord_offset_x = coord.x - coord_x;
     let coord_offset_y = coord.y - coord_y;
     // check for obstacle
-    let pixelData = {
-        point: ctx.getImageData(coord.x + coord_offset_x, coord.y + coord_offset_y, 1, 1).data,
-        left: ctx.getImageData(coord.x + coord_offset_x - 4, coord.y + coord_offset_y - 4, 1, 1).data,
-        right: ctx.getImageData(coord.x + coord_offset_x + 4, coord.y + coord_offset_y + 4, 1, 1).data
-    }
-    let hex1 = "#" + (colors.obstacle + rgbToHex(pixelData.point[0], pixelData.point[1], pixelData.point[2])).slice(-6);
-    let hex2 = "#" + (colors.obstacle + rgbToHex(pixelData.left[0], pixelData.left[1], pixelData.left[2])).slice(-6);
-    let hex3 = "#" + (colors.obstacle + rgbToHex(pixelData.right[0], pixelData.right[1], pixelData.right[2])).slice(-6);
-    if (hex1 === '#' + colors.obstacle || hex2 === '#' + colors.obstacle || hex3 === '#' + colors.obstacle) {
+    let pixelData = ctx.getImageData(coord.x + coord_offset_x, coord.y + coord_offset_y, 1, 1).data;
+    let hex = "#" + (colors.obstacle + rgbToHex(pixelData[0], pixelData[1], pixelData[2])).slice(-6);
+    if (hex === '#' + colors.obstacle) {
         audio.hit.play();
         stopPainting();
         return;
