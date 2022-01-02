@@ -10,7 +10,9 @@ let colors = {
     way: 'ffffff'
 };
 var audio = {
-    hit: new Audio('audio/2.mp3')
+    start: new Audio('audio/1.mp3'),
+    hit: new Audio('audio/2.mp3'),
+    end: new Audio('audio/1.mp3')
 };
 
 window.addEventListener('load', () => {
@@ -29,6 +31,7 @@ window.addEventListener('load', () => {
         document.addEventListener("mousemove", sketch, false);
     }
     window.addEventListener('resize', resize);
+    //audio.start.play();
 });
 
 function resize() {
@@ -39,12 +42,14 @@ function resize() {
 }
 
 function getPosition(event) {
-    coord.x = event.clientX - canvas.offsetLeft - 7;
-    coord.y = event.clientY - canvas.offsetTop - 7;
+    coord.x = event.clientX - canvas.offsetLeft;
+    coord.y = event.clientY - canvas.offsetTop;
     /*
     if (coord_path_start.x < coord_path_start.y) {
-        if (ctx.canvas.width < coord.x + 25)
-            alert('done1');
+        */
+    if (ctx.canvas.width < coord.x + 25 && hasPath === true)
+        audio.end.play();
+    /*
     } else {
         if (ctx.canvas.height < coord.y + 25)
             alert('done3');
@@ -68,7 +73,7 @@ function drawImageFromWebUrl(sourceurl) {
 
 function startPainting(event) {
     getPosition(event);
-    if (coord.x > 15 && hasPath === false)
+    if (coord.x > 25 && hasPath === false)
         return;
     let pixelData = ctx.getImageData(coord.x, coord.y, 1, 1).data;
     let hex = "#" + (colors.path + rgbToHex(pixelData[0], pixelData[1], pixelData[2])).slice(-6);

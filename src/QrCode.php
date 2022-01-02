@@ -34,7 +34,7 @@ class QrCode
             ->roundBlockSizeMode(new RoundBlockSizeModeMargin())
             //->logoPath(__DIR__ . '/assets/symfony.png')
             ->labelText('')
-            ->labelFont(new NotoSans(20))
+            ->labelFont(new NotoSans(14))
             ->labelAlignment(new LabelAlignmentCenter())
             ->build();
     }
